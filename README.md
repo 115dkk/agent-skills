@@ -23,6 +23,7 @@ The skill is then available as `/115dkk-skills:improve-codebase-architecture`.
 
 Changes from upstream:
 
+- **YAGNI scoping, taken from upstream later.** The review's Explore step first decides where to look: the direction the user named, or else the hot spots in recent `git log`. This is upstream's [`45afd80`](https://github.com/mattpocock/skills/commit/45afd80) (2026-07-13), merged into this older layout.
 - **CI output.** Under `CI=true`, `GITHUB_ACTIONS=true`, or when asked for a CI artifact, the report is written to `ARCHITECTURE_AUDIT.md` in the repo root for a scheduled audit workflow to consume.
 - **Artifact delivery.** In an interactive session that can publish an Artifact page, the report is published there by default, so it can be read on a phone. The HTML guide covers the page contract that brings: no document shell, pinned script versions, Mermaid rendered natively, light and dark tokens, before/after stacked at phone width.
 - **React for hand-built diagrams.** Repeated diagram primitives may be React components (React 18 UMD plus `htm`, no build step).
