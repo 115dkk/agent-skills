@@ -1,5 +1,6 @@
 {
   "name": "115dkk-skills",
+  "version": "1.0.11",
   "description": "Agent skills for engineering work: improve-codebase-architecture (deepening reviews and first architectures with flow diagrams), tech-debt-audit (file-cited whole-repository debt audits that compare against the previous run) and tdd (a red-green loop at seams agreed before any test).",
   "author": {
     "name": "115dkk",

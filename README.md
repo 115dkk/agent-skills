@@ -19,7 +19,14 @@ In Claude Code:
 
 The skills are then available as `/115dkk-skills:improve-codebase-architecture`, `/115dkk-skills:tech-debt-audit` and `/115dkk-skills:tdd`.
 
-The plugin's manifest pins no version, so every commit to `main` is a new version. Claude Code leaves auto-update off for marketplaces outside Anthropic's own; turn it on under `/plugin` → **Marketplaces** → `115dkk` → **Enable auto-update**, or run `claude plugin update 115dkk-skills@115dkk` to update by hand.
+### Updates
+
+Every change to the plugin reaches installs as a new version: after each push to `main` that touches `skills/` or `.claude-plugin/`, the [plugin version workflow](.github/workflows/plugin-version.yml) sets `version` in `plugin.json` to `1.0.N`, where N counts the commits on `main` other than its own. Claude Code compares that string with the installed one, so a version that stays the same across commits would keep every install on its old copy; that is why nobody edits the field by hand.
+
+Whether an install picks up a new version by itself depends on how the marketplace was added:
+
+- **Added from claude.ai**: auto-update is on by default.
+- **Added with `/plugin marketplace add`** (or `claude plugin marketplace add`): auto-update is off by default. Turn it on under `/plugin` → **Marketplaces** → `115dkk` → **Enable auto-update**, or update by hand with `claude plugin update 115dkk-skills@115dkk`.
 
 ## Where it comes from
 

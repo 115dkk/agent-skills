@@ -1,0 +1,84 @@
+# Plugin version
+#
+# Claude Code reads `version` in .claude-plugin/plugin.json before anything
+# else and keeps every install on its cached copy until that string changes.
+# A version that stays the same across commits therefore stops all updates
+# (this plugin sat at 1.0.0 that way until October 2026), and a manifest with
+# no version passes validation only with a warning.
+#
+# This workflow owns the field instead: after each push to main that changes
+# the plugin, it sets `version` to 1.0.N, where N counts the commits on main
+# other than its own, and commits that one line. Nobody edits the field by
+# hand. A push made with GITHUB_TOKEN starts no workflow run, so the commit
+# below does not trigger this workflow again.
+
+name: Plugin version
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - '.claude-plugin/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: plugin-version
+  cancel-in-progress: false
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set the version from the commit count
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          set_version() {
+            local count version
+            count=$(git rev-list --count --grep='^chore(version):' --invert-grep HEAD)
+            version="1.0.${count}"
+            python3 - "$version" <<'PY'
+          import json, pathlib, sys
+          path = pathlib.Path(".claude-plugin/plugin.json")
+          manifest = json.loads(path.read_text())
+          if manifest.get("version") == sys.argv[1]:
+              sys.exit(0)
+          manifest["version"] = sys.argv[1]
+          path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+          PY
+            echo "$version"
+          }
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          version=$(set_version)
+          if git diff --quiet -- .claude-plugin/plugin.json; then
+            echo "plugin.json is already at ${version}."
+            exit 0
+          fi
+          git commit -q -m "chore(version): ${version}" -- .claude-plugin/plugin.json
+
+          # Someone may have pushed while this job ran: rebase once, recount
+          # and retry. The run their push started sets the final value anyway.
+          if ! git push origin HEAD:main; then
+            git reset -q --hard origin/main
+            git pull -q --ff-only origin main
+            version=$(set_version)
+            if git diff --quiet -- .claude-plugin/plugin.json; then
+              exit 0
+            fi
+            git commit -q -m "chore(version): ${version}" -- .claude-plugin/plugin.json
+            git push origin HEAD:main
+          fi
+          echo "plugin.json set to ${version}."
