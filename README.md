@@ -17,6 +17,8 @@ In Claude Code:
 
 The skill is then available as `/115dkk-skills:improve-codebase-architecture`.
 
+The plugin's manifest pins no version, so every commit to `main` is a new version. Claude Code leaves auto-update off for marketplaces outside Anthropic's own; turn it on under `/plugin` → **Marketplaces** → `115dkk` → **Enable auto-update**, or run `claude plugin update 115dkk-skills@115dkk` to update by hand.
+
 ## Where it comes from
 
 `improve-codebase-architecture` is adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT), as it stood at commit [`694fa30`](https://github.com/mattpocock/skills/tree/694fa30311e02c2639942308513555e61ee84a6f/skills/engineering/improve-codebase-architecture): the self-contained version with its own `LANGUAGE.md`, `DEEPENING.md` and `INTERFACE-DESIGN.md`. `CONTEXT-FORMAT.md` and `ADR-FORMAT.md` come from `grill-with-docs` at the same commit, so the skill's links resolve without that skill installed. Upstream has since split the vocabulary into separate skills and renamed `CONTEXT.md` to `GLOSSARY.md`; this copy keeps the older layout.
