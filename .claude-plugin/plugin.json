@@ -1,6 +1,6 @@
 {
   "name": "115dkk-skills",
-  "description": "Agent skills for engineering work. improve-codebase-architecture finds deepening opportunities in a codebase, presents them as a visual report, then grills through the one you pick.",
+  "description": "Agent skills for engineering work: improve-codebase-architecture (deepening reviews and first architectures with flow diagrams) and tech-debt-audit (file-cited whole-repository debt audits that compare against the previous run).",
   "author": {
     "name": "115dkk",
     "url": "https://github.com/115dkk"
@@ -10,6 +10,8 @@
     "engineering",
     "skills",
     "architecture",
-    "refactoring"
+    "refactoring",
+    "tech-debt",
+    "audit"
   ]
 }
