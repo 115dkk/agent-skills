@@ -45,7 +45,7 @@ One card per candidate stack:
 - **Title** — the stack, named by its parts ("TypeScript · Node 24 · SQLite · single binary").
 - **Fit badge** — `Recommended` (emerald), `Viable` (amber), `Stretch` (slate).
 - **Components** — monospaced list: language, runtime, framework, storage, deployment, notable libraries, each with the version you checked.
-- **Architecture under this stack** — the module map diagram, with the framework-provided modules drawn differently from the ones you would write.
+- **Architecture under this stack** — the module map as a flow graph (see "Diagrams show flow" in [HTML-REPORT.md](HTML-REPORT.md)), with the framework-provided modules drawn differently from the ones you would write.
 - **Hard parts** — one row per hard part: how it is solved on this stack, and whether that is a library, a framework feature or your own code.
 - **Strengths** and **Costs** — bullets, each tied to a criterion.
 - **Risks** — what is unverified or immature.

@@ -47,7 +47,7 @@ Project name, date, the legend from [HTML-REPORT.md](HTML-REPORT.md), and a **br
 
 ### Module map
 
-The centrepiece of the top half. One diagram of the deep modules, their seams (dashed), and the adapters at each seam (for example "HTTP in prod, in-memory in tests"). Under it, one row per module:
+The centrepiece of the top half. One flow graph (see "Diagrams show flow" in [HTML-REPORT.md](HTML-REPORT.md)) of the deep modules, the calls and data between them, their seams (dashed), and the adapters at each seam (for example "HTTP in prod, in-memory in tests"). Under it, one row per module:
 
 - **Module** — name from `CONTEXT.md`.
 - **Interface** — one line: what a caller can ask of it.
@@ -72,7 +72,7 @@ One card per hard part, in the order they would hurt most if wrong. Each card:
 One card per decision that had a real alternative (a hard part's implementation, the module split, a library, a storage model). This replaces the review's "fine as is" section: instead of defending code, it shows the roads not taken so a later reader does not reopen them by accident.
 
 - **Decision** — one line.
-- **Chosen** and **Rejected** — side by side, each with a small diagram in the same style (two or three boxes is enough), so the difference is visible, not just told.
+- **Chosen** and **Rejected** — side by side, each a small flow graph (two to four nodes and the edges between them), so the difference in where the flow goes is visible, not just told.
 - **Why rejected** — the constraint that kills it, one or two sentences.
 - **Revisit if** — the change in circumstances that would flip the decision.
 - **ADR** — whether this deserves an ADR now (most do, in a new project).

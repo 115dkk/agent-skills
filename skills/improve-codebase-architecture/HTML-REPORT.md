@@ -87,9 +87,26 @@ Each candidate is one `<article>`:
 
 No paragraphs of explanation. If the diagram needs a paragraph to be understood, redraw the diagram.
 
+## Diagrams show flow (read before drawing anything)
+
+The diagrams are what this skill is known for, and the reader opens them to see **which module flows into which**: who calls whom, where data goes, where the flow crosses a seam, where it leaks. So every before/after pair is a graph. Modules are nodes, calls and data are edges with arrowheads, a seam is a dashed edge or a dashed line the edges cross, a leak is a red edge or node.
+
+- **Good** ([examples/diagram-good.jpg](examples/diagram-good.jpg), the user's own sketch): one node, its edge branching to the three nodes it reaches, each with an arrowhead. You can trace the flow with a finger.
+- **Bad** ([examples/diagram-bad.jpg](examples/diagram-bad.jpg)): a box full of small boxes, one arrow, then another box full of small boxes and a bar. It says "this box turns into that box" and nothing about what flows where. Chips and tags inside a box are labels, not a diagram.
+
+This holds whatever draws the picture. Moving from Mermaid or SVG to React is not a licence to fall back to nested boxes because edges are harder to place: React components draw nodes **and** the SVG edges between them, or they are the wrong tool for that diagram. When in doubt, use a Mermaid `flowchart`.
+
+Check every diagram before publishing:
+
+1. Does it have edges with arrowheads? A diagram without arrows is almost always the bad kind.
+2. Can you trace one request or call from where it enters to where it ends, in the before and in the after?
+3. Does the after differ in **where the flow goes** (fewer paths, one crossing of the seam, a duplicate edge gone, a leak edge removed), not only in what the boxes are called or how they are grouped?
+
+If any answer is no, redraw it as the call or data-flow graph. The editorial patterns further down (mass diagram, cross-section, collapse) may sit next to a flow graph to make one point sharper; they never replace it.
+
 ## Diagram patterns
 
-Pick the pattern that fits the candidate. Mix them. Don't make every diagram look the same — variety is part of the point.
+Pick the pattern that fits the candidate. Mix them. Don't make every diagram look the same — variety is part of the point. Every card still has at least one flow graph (above).
 
 ### Mermaid graph (the workhorse for dependencies / call flow)
 
@@ -114,7 +131,9 @@ Modules as boxes with borders and labels; arrows as inline SVG `<line>` or `<pat
 
 ### React primitives (when the same visuals repeat)
 
-When several candidates draw the same things, write them once as small components (`Module`, `Seam`, `Leak`, `MassBar`, `BeforeAfter`) and compose each diagram from them. Use React 18 UMD plus `htm` (pinned, see above) so there is no build step, mount into one root, and keep the content (candidate data) as a plain array at the top of the script. Interaction stays small: a before/after toggle on a phone, a hover that highlights a seam. Everything meant to be read is visible without interaction.
+When several candidates draw the same graph shapes, write them once as small components and compose each diagram from them: `Node` (a module box at a position), `Edge` (an SVG path with an arrowhead from one node to another, solid for calls, dashed for a seam, red for a leak), `Seam`, `MassBar`, `BeforeAfter`. The edges are the point of the component set; a set with only boxes draws the bad kind of diagram. Use React 18 UMD plus `htm` (pinned, see above) so there is no build step, mount into one root, and keep the content (candidate data, as nodes and edges) as a plain array at the top of the script. Interaction stays small: a before/after toggle on a phone, a hover that highlights a path. Everything meant to be read is visible without interaction.
+
+On an Artifact page, keep Mermaid blocks in the static HTML. The viewer renders the `<pre class="mermaid">` blocks it finds; blocks a React tree inserts later were not verified to render. A report whose graphs are all Mermaid needs no React at all.
 
 ### Cross-section (good for layered shallowness)
 
