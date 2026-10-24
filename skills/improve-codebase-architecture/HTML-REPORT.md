@@ -161,6 +161,10 @@ Before: a tree of function calls rendered as nested boxes. After: the same tree 
 
 One larger card. Candidate name, one sentence on why, anchor link to its card. That's it.
 
+## Fine as is section
+
+After the top recommendation, a short list of modules that look shallow, tangled or duplicated at first sight but should be left alone, so the next review does not propose them again. One bullet each: the module, and the reason in one line (the deletion test says it earns its keep; it is intricate but one piece and splitting it would scatter the bug surface; a recorded decision settles it, cite where). No diagrams, no cards. If the list would be empty, leave the section out.
+
 ## Tone
 
 Plain, concise — but the architectural nouns and verbs come straight from [LANGUAGE.md](LANGUAGE.md). Concision is not an excuse to drift.

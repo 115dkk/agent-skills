@@ -7,7 +7,7 @@ For a project that does not exist yet, or exists only as a scaffold, and whose s
 - What else could have been built instead, and why not?
 - What to build first so the design meets reality early.
 
-Improvement candidates and "looks bad but is fine" notes do not appear here. They describe existing code, and there is none.
+The review's improvement candidates and its **Fine as is** section do not appear here. Both describe existing code, and there is none.
 
 Delivery (Artifact page or local file), the diagram primitives, style and tone are those of [HTML-REPORT.md](HTML-REPORT.md). The vocabulary is [LANGUAGE.md](LANGUAGE.md), unchanged: a new design is where *deep*, *seam* and *adapter* do the most good.
 
@@ -69,7 +69,7 @@ One card per hard part, in the order they would hurt most if wrong. Each card:
 
 ### Alternatives considered
 
-One card per decision that had a real alternative (a hard part's implementation, the module split, a library, a storage model). This replaces the review's "fine as is" section: instead of defending code, it shows the roads not taken so a later reader does not reopen them by accident.
+One card per decision that had a real alternative (a hard part's implementation, the module split, a library, a storage model). This takes the place of the review's **Fine as is** section: instead of defending code that exists, it shows the roads not taken so a later reader does not reopen them by accident.
 
 - **Decision** — one line.
 - **Chosen** and **Rejected** — side by side, each a small flow graph (two to four nodes and the edges between them), so the difference in where the flow goes is visible, not just told.
