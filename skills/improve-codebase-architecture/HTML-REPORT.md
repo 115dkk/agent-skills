@@ -91,8 +91,10 @@ No paragraphs of explanation. If the diagram needs a paragraph to be understood,
 
 The diagrams are what this skill is known for, and the reader opens them to see **which module flows into which**: who calls whom, where data goes, where the flow crosses a seam, where it leaks. So every before/after pair is a graph. Modules are nodes, calls and data are edges with arrowheads, a seam is a dashed edge or a dashed line the edges cross, a leak is a red edge or node.
 
-- **Good** ([examples/diagram-good.jpg](examples/diagram-good.jpg), the user's own sketch): one node, its edge branching to the three nodes it reaches, each with an arrowhead. You can trace the flow with a finger.
-- **Bad** ([examples/diagram-bad.jpg](examples/diagram-bad.jpg)): a box full of small boxes, one arrow, then another box full of small boxes and a bar. It says "this box turns into that box" and nothing about what flows where. Chips and tags inside a box are labels, not a diagram.
+- **Good** ([examples/diagram-good.svg](examples/diagram-good.svg), redrawn from the owner's sketch): one node, its edge branching to the three nodes it reaches, each with an arrowhead. You can trace the flow with a finger.
+- **Bad** ([examples/diagram-bad.svg](examples/diagram-bad.svg)): a box full of small boxes, one arrow, then another box full of small boxes and a bar. It says "this box turns into that box" and nothing about what flows where. Chips and tags inside a box are labels, not a diagram.
+
+Both examples are plain SVG with a `<title>` and `<desc>`, so they can be read as text as well as looked at.
 
 This holds whatever draws the picture. Moving from Mermaid or SVG to React is not a licence to fall back to nested boxes because edges are harder to place: React components draw nodes **and** the SVG edges between them, or they are the wrong tool for that diagram. When in doubt, use a Mermaid `flowchart`.
 

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 300" width="420" height="300" role="img" aria-labelledby="t d">
+  <title id="t">Good: a flow graph</title>
+  <desc id="d">One module node, A, at the top. A single edge leaves A, branches, and ends in three arrowheads on three module nodes below it: B, C and D. The reader can trace which module flows into which. This is the shape every before/after diagram should have: nodes joined by directed edges.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#142033"/>
+    </marker>
+  </defs>
+  <rect width="420" height="300" fill="#ffffff"/>
+  <text x="16" y="28" font-family="sans-serif" font-size="18" font-weight="700" fill="#1d7a4f">GOOD</text>
+
+  <!-- node A -->
+  <rect id="A" x="160" y="44" width="100" height="56" rx="4" fill="#ffffff" stroke="#142033" stroke-width="2"/>
+  <text x="210" y="78" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#142033">A</text>
+
+  <!-- edge A -> branch point, then A -> B, A -> C, A -> D -->
+  <path d="M210,100 V150" fill="none" stroke="#142033" stroke-width="2"/>
+  <path d="M210,150 H70 V208" fill="none" stroke="#142033" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M210,150 V208" fill="none" stroke="#142033" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M210,150 H350 V208" fill="none" stroke="#142033" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- nodes B, C, D -->
+  <rect id="B" x="30" y="210" width="80" height="48" rx="4" fill="#ffffff" stroke="#142033" stroke-width="2"/>
+  <text x="70" y="240" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#142033">B</text>
+  <rect id="C" x="170" y="210" width="80" height="48" rx="4" fill="#ffffff" stroke="#142033" stroke-width="2"/>
+  <text x="210" y="240" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#142033">C</text>
+  <rect id="D" x="310" y="210" width="80" height="48" rx="4" fill="#ffffff" stroke="#142033" stroke-width="2"/>
+  <text x="350" y="240" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#142033">D</text>
+
+  <text x="210" y="288" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5a6779">A calls B, C and D: the edges carry the meaning.</text>
+</svg>
