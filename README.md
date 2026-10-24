@@ -4,7 +4,7 @@ Agent skills packaged as a Claude Code plugin marketplace.
 
 | Skill | What it does |
 |---|---|
-| `improve-codebase-architecture` | Finds deepening opportunities in a codebase (refactors that put more behaviour behind a smaller interface), presents them as a visual report with before/after diagrams, then grills through the one you pick. |
+| `improve-codebase-architecture` | Architecture reports with diagrams, in three kinds. **Review**: deepening opportunities in an existing codebase (refactors that put more behaviour behind a smaller interface), with before/after diagrams, then a grilling session on the one you pick. **Foundation**: the first architecture of a new project on a given stack: the module map, how each hard part will be built, the alternatives that were rejected and why, and the first slice to build. **Stack**: when asked to choose the stack, the plausible stacks each drawn with the architecture it implies, compared on the project's own criteria, with one recommended. |
 
 ## Install
 
@@ -30,6 +30,7 @@ Changes from upstream:
 - **The user's language.** The report is written in the user's language with the glossary terms kept in English, because translated they turn back into the metaphors they were defined to replace.
 - **Asking which candidate to explore** goes through a question tool when one exists.
 - Links to `grill-with-docs` files point to the bundled copies.
+- **Foundation and Stack reports** (`FOUNDATION-REPORT.md`, `STACK-REPORT.md`), with `SKILL.md` choosing between the three reports from the user's words and the repository's state. They are new in this repository, not from upstream.
 
 ## License
 

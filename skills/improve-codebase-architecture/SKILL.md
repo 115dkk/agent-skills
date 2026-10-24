@@ -1,6 +1,6 @@
 ---
 name: improve-codebase-architecture
-description: Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.
+description: Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/, or lay out the first architecture of a new project and, when asked, choose its stack. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, make a codebase more testable and AI-navigable, design the initial architecture of something new, or decide which stack to build it on.
 ---
 
 # Improve Codebase Architecture
@@ -28,7 +28,21 @@ Key principles (see [LANGUAGE.md](LANGUAGE.md) for the full list):
 
 This skill is _informed_ by the project's domain model. The domain language gives names to good seams; ADRs record decisions the skill should not re-litigate.
 
-## Process
+## Choose the report
+
+Three situations, three reports. Decide which one before doing anything else, from the user's words first and the repository second.
+
+| Situation | Signals | Report | Process |
+|---|---|---|---|
+| **Review**: a codebase exists and the user wants it better | "refactor", "improve the architecture", "what should we clean up"; a repo with history | [HTML-REPORT.md](HTML-REPORT.md) | the steps below |
+| **Foundation**: something new is being built and its stack is already given | "set up", "design the architecture", "how should we structure"; an empty or scaffold-only repo; the user names the language or framework | [FOUNDATION-REPORT.md](FOUNDATION-REPORT.md) | the steps in that file |
+| **Stack**: something new is being built and the user asks you to choose what it is built on | "which stack", "what should we use", "pick the framework"; nothing settled about language, runtime or storage | [STACK-REPORT.md](STACK-REPORT.md) | the steps in that file |
+
+When the signals disagree (an empty repo but the user asks for refactoring ideas, or a stack question about an existing codebase), ask which report they want. A Stack report usually ends by offering a Foundation report for the stack the user picks.
+
+All three share the vocabulary below, [LANGUAGE.md](LANGUAGE.md), [DEEPENING.md](DEEPENING.md)'s dependency categories, and the delivery, primitives, style and tone rules in [HTML-REPORT.md](HTML-REPORT.md). Only the review uses CI mode.
+
+## Process (review)
 
 ### 1. Explore
 

@@ -1,5 +1,7 @@
 # HTML Report Format
 
+This file is the review report's format. Its delivery, diagram patterns, style and tone sections are shared with [FOUNDATION-REPORT.md](FOUNDATION-REPORT.md) and [STACK-REPORT.md](STACK-REPORT.md), which replace only the report's sections.
+
 The architectural review is one self-contained page. Mermaid handles graph-shaped diagrams reliably; hand-built visuals (divs, inline SVG, or React components) handle the more editorial ones (mass diagrams, cross-sections). Mix the two — don't lean on Mermaid for everything, it'll start to look generic.
 
 There are two ways to deliver it, and they differ only in the outer shell and in how scripts load.
