@@ -6,6 +6,7 @@ Agent skills packaged as a Claude Code plugin marketplace.
 |---|---|
 | `improve-codebase-architecture` | Architecture reports with diagrams, in three kinds. **Review**: deepening opportunities in an existing codebase (refactors that put more behaviour behind a smaller interface), with before/after diagrams, then a grilling session on the one you pick. **Foundation**: the first architecture of a new project on a given stack: the module map, how each hard part will be built, the alternatives that were rejected and why, and the first slice to build. **Stack**: when asked to choose the stack, the plausible stacks each drawn with the architecture it implies, compared on the project's own criteria, with one recommended. |
 | `tech-debt-audit` | A whole-repository audit across nine dimensions (architectural decay, consistency, types and contracts, tests, dependencies, performance, error handling, security, documentation), written to `TECH_DEBT_AUDIT.md` with a `file:line` citation, severity and effort for every finding. Compares against the previous audit when one is placed in the repository, and turns "looks bad but is fine" calls into written reasons instead of a list that repeats every run. |
+| `tdd` | Test-driven development as a red → green loop at seams agreed before any test is written: what a good test is, where tests go, the anti-patterns (implementation-coupled, tautological, call-success, horizontal slicing), test adapters that misbehave like real third-party code, and Rust and C++ notes. |
 
 ## Install
 
@@ -16,7 +17,7 @@ In Claude Code:
 /plugin install 115dkk-skills@115dkk
 ```
 
-The skills are then available as `/115dkk-skills:improve-codebase-architecture` and `/115dkk-skills:tech-debt-audit`.
+The skills are then available as `/115dkk-skills:improve-codebase-architecture`, `/115dkk-skills:tech-debt-audit` and `/115dkk-skills:tdd`.
 
 The plugin's manifest pins no version, so every commit to `main` is a new version. Claude Code leaves auto-update off for marketplaces outside Anthropic's own; turn it on under `/plugin` → **Marketplaces** → `115dkk` → **Enable auto-update**, or run `claude plugin update 115dkk-skills@115dkk` to update by hand.
 
@@ -51,6 +52,21 @@ Changes from upstream:
 - **"Looks bad but is fine", rewritten.** The section is no longer required to be non-empty, which pushed the model to pad it. Each entry cites the evidence in the repository that makes the code right; a correct call whose reason is written nowhere becomes a Documentation drift finding to write that reason at the site; entries the baseline already lists are not repeated.
 - **Reads the architecture review.** When `ARCHITECTURE_AUDIT.md` exists, modules its **Fine as is** section names are not proposed for splitting or merging; a disagreement goes to Open questions.
 - **Native code.** C and C++ tooling (cppcheck, clang-tidy with a compilation database, MSVC code analysis, lizard), results of analyzers the project already runs, and dimension additions for this kind of code: integers and `void*` carrying several meanings, validation of what third-party code hands back, call-success tests, several failures reported as one, memory-safety hazards.
+
+### tdd
+
+`tdd` is adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT), as it stood at commit [`3f59913`](https://github.com/mattpocock/skills/tree/3f599139104dfceabc7754eeb91319802f85e042/skills/engineering/tdd) (2026-10-07), its latest change: the reference-only version with pre-agreed seams, the tautological-test anti-pattern, a red → green loop without a refactor stage, and a note on what each proposed seam catches and misses. `tests.md` and `mocking.md` start from upstream's.
+
+Changes from upstream:
+
+- **Self-contained vocabulary.** Upstream calls a separate `codebase-design` skill for the meaning of interface, seam and adapter. This plugin has no such skill, so `tdd` carries short definitions that match `improve-codebase-architecture`'s `LANGUAGE.md` and points to it.
+- **`CONTEXT.md`** as the glossary name, as in this plugin's architecture skill, with `GLOSSARY.md` also read.
+- **Where seam agreement comes from.** Proposed seams are offered through a question tool when one exists. A plan the user already approved (resolve-audit's classification table, a spec, a picked architecture candidate) counts as agreement for the seams it names, and an unattended run picks the narrowest seam and records it.
+- **Where refactoring goes.** Upstream sends it to a `code-review` skill that this plugin doesn't have. Here it goes to the scheduled architecture review and tech-debt audit and resolve-audit's refactor pass; a refactor step inside a cycle covers only the lines that cycle wrote.
+- **Deepening test-first**: tests at the deepened interface first, then the old tests on the shallow modules are deleted, not layered over.
+- **The call-success anti-pattern**: asserting that a call was accepted instead of what it did.
+- **Test adapters that misbehave like real third-party code**, as real loadable modules with one named mode per observed violation, and production defences whose comments cite them.
+- **Rust and C++ notes**, with examples in those languages next to upstream's TypeScript ones.
 
 ## License
 
