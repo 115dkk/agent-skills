@@ -1,0 +1,17 @@
+{
+  "name": "115dkk",
+  "owner": {
+    "name": "115dkk",
+    "url": "https://github.com/115dkk"
+  },
+  "description": "115dkk's agent skills, as an installable Claude Code plugin.",
+  "plugins": [
+    {
+      "name": "115dkk-skills",
+      "source": "./",
+      "description": "Agent skills for engineering work: improve-codebase-architecture, adapted from Matt Pocock's skills.",
+      "category": "engineering",
+      "keywords": ["engineering", "skills", "architecture", "refactoring"]
+    }
+  ]
+}
