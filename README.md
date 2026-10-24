@@ -1,5 +1,7 @@
 # 115dkk skills
 
+<img src="assets/klchan-cleaning.png" alt="클쨩 enthusiastically sweeping with a broom" width="160" height="160">
+
 Agent skills packaged as a Claude Code plugin marketplace.
 
 | Skill | What it does |
@@ -90,3 +92,5 @@ Changes from upstream:
 ## License
 
 MIT. See [LICENSE](LICENSE); the original copyright notices are kept.
+
+The plugin icon is a new AI-generated illustration of 클쨩 sweeping, based on the character reference in [this post](https://arca.live/b/characterai/167764605). See [the asset notes](assets/README.md) for its generation prompt.
