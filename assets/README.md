@@ -1,6 +1,6 @@
 # Plugin icon
 
-`klchan-cleaning.png` is a 256 × 256 transparent PNG referenced by `icon` in `.claude-plugin/plugin.json` and displayed in the repository README. The generated illustration was downscaled for use as an icon.
+`klchan-cleaning.png` is a 256 × 256 transparent PNG referenced by `interface.logo` and `interface.composerIcon` in `.codex-plugin/plugin.json` and displayed in the repository README. The generated illustration was downscaled for use as an icon. An identical copy at `.claude-plugin/icon.png` supplies Claude's convention-based icon discovery without adding the `icon` field that older web/SDK validators reject. `claude plugin validate .claude-plugin/plugin.json --strict --json` recognizes this file without an `ICON_MISSING` finding. This validates the package, not whether an existing claude.ai listing has refreshed its icon.
 
 Character reference: [클쨩](https://arca.live/b/characterai/167764605). The reference screenshots are not bundled. The new illustration was generated with ChatGPT's built-in image generation tool.
 

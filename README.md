@@ -2,7 +2,7 @@
 
 <img src="assets/klchan-cleaning.png" alt="클쨩 enthusiastically sweeping with a broom" width="160" height="160">
 
-Agent skills packaged as a Claude Code plugin marketplace.
+Agent skills packaged for Claude Code and Codex.
 
 | Skill | What it does |
 |---|---|
@@ -22,9 +22,18 @@ In Claude Code:
 
 The skills are then available as `/115dkk-skills:improve-codebase-architecture`, `/115dkk-skills:tech-debt-audit`, `/115dkk-skills:tdd` and `/115dkk-skills:resolve-audit`.
 
+In Codex:
+
+```sh
+codex plugin marketplace add 115dkk/agent-skills --ref main
+codex plugin add 115dkk-skills@115dkk
+```
+
+Claude discovers the icon at `.claude-plugin/icon.png`; Codex uses the icon paths in `.codex-plugin/plugin.json`. The Claude manifest omits the top-level `icon` field so older web/SDK validators do not report an unknown-key warning.
+
 ### Updates
 
-Every change to the plugin reaches installs as a new version: after each push to `main` that touches `skills/` or `.claude-plugin/`, the [plugin version workflow](.github/workflows/plugin-version.yml) sets `version` in `plugin.json` to `1.0.N`, where N counts the commits on `main` other than its own. Claude Code compares that string with the installed one, so a version that stays the same across commits would keep every install on its old copy; that is why nobody edits the field by hand.
+Every change to the plugin reaches installs as a new version: after each push to `main` that touches `skills/`, `.claude-plugin/`, `.codex-plugin/` or `assets/`, the [plugin version workflow](.github/workflows/plugin-version.yml) sets `version` in both plugin manifests to `1.0.N`, where N counts the commits on `main` other than its own. Claude Code compares that string with the installed one, so a version that stays the same across commits would keep every install on its old copy; that is why nobody edits the field by hand.
 
 Whether an install picks up a new version by itself depends on how the marketplace was added:
 

@@ -1,0 +1,31 @@
+{
+  "name": "115dkk-skills",
+  "version": "1.0.14",
+  "description": "Agent skills for engineering work: improve-codebase-architecture (deepening reviews and first architectures with flow diagrams), tech-debt-audit (file-cited whole-repository debt audits that compare against the previous run), tdd (a red-green loop at seams agreed before any test) and resolve-audit (an audit issue turned into one pull request, one finding per commit).",
+  "author": {
+    "name": "115dkk",
+    "url": "https://github.com/115dkk"
+  },
+  "license": "MIT",
+  "keywords": [
+    "engineering",
+    "skills",
+    "architecture",
+    "refactoring",
+    "tech-debt",
+    "audit",
+    "tdd",
+    "testing"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "115dkk skills",
+    "developerName": "115dkk",
+    "shortDescription": "Engineering workflow skills",
+    "longDescription": "Agent skills for engineering work: improve-codebase-architecture (deepening reviews and first architectures with flow diagrams), tech-debt-audit (file-cited whole-repository debt audits that compare against the previous run), tdd (a red-green loop at seams agreed before any test) and resolve-audit (an audit issue turned into one pull request, one finding per commit).",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "logo": "./assets/klchan-cleaning.png",
+    "composerIcon": "./assets/klchan-cleaning.png"
+  }
+}

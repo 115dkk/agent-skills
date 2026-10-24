@@ -20,6 +20,8 @@ on:
     paths:
       - 'skills/**'
       - '.claude-plugin/**'
+      - '.codex-plugin/**'
+      - 'assets/**'
   workflow_dispatch:
 
 permissions:
@@ -49,12 +51,12 @@ jobs:
             version="1.0.${count}"
             python3 - "$version" <<'PY'
           import json, pathlib, sys
-          path = pathlib.Path(".claude-plugin/plugin.json")
-          manifest = json.loads(path.read_text())
-          if manifest.get("version") == sys.argv[1]:
-              sys.exit(0)
-          manifest["version"] = sys.argv[1]
-          path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+          for name in (".claude-plugin/plugin.json", ".codex-plugin/plugin.json"):
+              path = pathlib.Path(name)
+              manifest = json.loads(path.read_text())
+              if manifest.get("version") != sys.argv[1]:
+                  manifest["version"] = sys.argv[1]
+                  path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
           PY
             echo "$version"
           }
@@ -63,11 +65,11 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
           version=$(set_version)
-          if git diff --quiet -- .claude-plugin/plugin.json; then
+          if git diff --quiet -- .claude-plugin/plugin.json .codex-plugin/plugin.json; then
             echo "plugin.json is already at ${version}."
             exit 0
           fi
-          git commit -q -m "chore(version): ${version}" -- .claude-plugin/plugin.json
+          git commit -q -m "chore(version): ${version}" -- .claude-plugin/plugin.json .codex-plugin/plugin.json
 
           # Someone may have pushed while this job ran: rebase once, recount
           # and retry. The run their push started sets the final value anyway.
@@ -75,10 +77,10 @@ jobs:
             git reset -q --hard origin/main
             git pull -q --ff-only origin main
             version=$(set_version)
-            if git diff --quiet -- .claude-plugin/plugin.json; then
+            if git diff --quiet -- .claude-plugin/plugin.json .codex-plugin/plugin.json; then
               exit 0
             fi
-            git commit -q -m "chore(version): ${version}" -- .claude-plugin/plugin.json
+            git commit -q -m "chore(version): ${version}" -- .claude-plugin/plugin.json .codex-plugin/plugin.json
             git push origin HEAD:main
           fi
           echo "plugin.json set to ${version}."
