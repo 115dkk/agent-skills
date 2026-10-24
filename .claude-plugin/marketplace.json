@@ -9,7 +9,7 @@
     {
       "name": "115dkk-skills",
       "source": "./",
-      "description": "Agent skills for engineering work: improve-codebase-architecture and tdd, adapted from Matt Pocock's skills, and tech-debt-audit, adapted from ksimback's.",
+      "description": "Agent skills for engineering work: improve-codebase-architecture and tdd, adapted from Matt Pocock's skills, tech-debt-audit, adapted from ksimback's, and resolve-audit, which turns their audit issues into pull requests.",
       "category": "engineering",
       "keywords": [
         "engineering",

@@ -14,7 +14,7 @@ Category A의 TDD 루프 하나만으로도 상당한 컨텍스트를 소모하�
 - 의존성 관계를 잊고 순서를 어긴다
 - 이미 실패한 접근을 반복한다
 
-## 상태 기록 수단: 파일 + TodoWrite
+## 상태 기록 수단: 파일 + 작업 목록 도구
 
 두 가지를 병용한다.
 
@@ -31,12 +31,12 @@ Category A의 TDD 루프 하나만으로도 상당한 컨텍스트를 소모하�
 Updated: <ISO timestamp>
 
 ## Classification Table
-| ID | Finding | Cat | Severity | Effort | Status | Notes |
-|----|---------|-----|----------|--------|--------|-------|
-| A-1 | Missing error handling | A | High | S | DONE | commit abc1234 |
-| A-2 | Edge case in parser | A | High | M | IN_PROGRESS | Red 완료, Green 진행 중 |
-| B-1 | Split god file | B | Medium | L | PENDING | depends on A-1 |
-| B-2 | Remove circular dep | B→A | Medium | M | RECLASSIFIED | 테스트 실패로 A-4로 전환 |
+| ID | Audit ID | Finding | Cat | Severity | Effort | Status | Notes |
+|----|----------|---------|-----|----------|--------|--------|-------|
+| A-1 | TD-07 | Missing error handling | A | High | S | DONE | commit abc1234 |
+| A-2 | TD-11 | Edge case in parser | A | High | M | IN_PROGRESS | Red 완료, Green 진행 중 |
+| B-1 | TD-12 | Split god file | B | Medium | L | PENDING | depends on A-1 |
+| B-2 | C3 | Remove circular dep | B→A | Medium | M | RECLASSIFIED | 테스트 실패로 A-4로 전환 |
 
 ## Dependency Graph
 A-1 → B-1 (B-1은 A-1 완료 후 처리)
@@ -61,13 +61,13 @@ B-2 → B-4 (파일 겹침)
   예외를 기대하는 구조. Result 타입 반환으로 전환.
 ```
 
-### 2. TodoWrite (작업 진행 상태, 세션 내)
+### 2. 작업 목록 도구 (작업 진행 상태, 세션 내)
 
-현재 진행 중인 작업과 다음 작업을 TodoWrite로 관리한다.
+현재 진행 중인 작업과 다음 작업을 세션이 제공하는 작업 목록 도구(TodoWrite, TaskCreate 등)로 관리한다.
 /compact 후에도 TodoList는 유지된다.
 
 ```
-TodoWrite:
+작업 목록:
 - [x] Phase 0: 분류 완료, 사용자 확인 완료
 - [x] A-1: Missing error handling (DONE)
 - [ ] A-2: Edge case in parser (IN PROGRESS - Green)
@@ -153,7 +153,7 @@ Failed: try/catch → Result 타입 전환
 2. `git log --oneline fix/audit-<NUMBER>`로
    실제 커밋 상태를 확인한다.
 3. 두 정보를 대조하여 현재 위치를 확정한다.
-4. TodoWrite를 재구성한다.
+4. 작업 목록을 재구성한다.
 5. 다음 미완료 항목부터 이어서 처리한다.
 
 ## 종료 시

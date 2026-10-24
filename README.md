@@ -7,6 +7,7 @@ Agent skills packaged as a Claude Code plugin marketplace.
 | `improve-codebase-architecture` | Architecture reports with diagrams, in three kinds. **Review**: deepening opportunities in an existing codebase (refactors that put more behaviour behind a smaller interface), with before/after diagrams, then a grilling session on the one you pick. **Foundation**: the first architecture of a new project on a given stack: the module map, how each hard part will be built, the alternatives that were rejected and why, and the first slice to build. **Stack**: when asked to choose the stack, the plausible stacks each drawn with the architecture it implies, compared on the project's own criteria, with one recommended. |
 | `tech-debt-audit` | A whole-repository audit across nine dimensions (architectural decay, consistency, types and contracts, tests, dependencies, performance, error handling, security, documentation), written to `TECH_DEBT_AUDIT.md` with a `file:line` citation, severity and effort for every finding. Compares against the previous audit when one is placed in the repository, and turns "looks bad but is fine" calls into written reasons instead of a list that repeats every run. |
 | `tdd` | Test-driven development as a red → green loop at seams agreed before any test is written: what a good test is, where tests go, the anti-patterns (implementation-coupled, tautological, call-success, horizontal slicing), test adapters that misbehave like real third-party code, and Rust and C++ notes. |
+| `resolve-audit` | Turns an audit issue (the architecture review and the tech debt audit together) into one pull request: classifies each finding as a behaviour change (test-first with `tdd` at a seam agreed in the classification table), a pure refactor (the existing tests are the gate) or a config, type or documentation fix (the compiler or linter is the gate), then commits one finding at a time with its audit ID, keeping its state in a file so a long run survives compaction. |
 
 ## Install
 
@@ -17,7 +18,7 @@ In Claude Code:
 /plugin install 115dkk-skills@115dkk
 ```
 
-The skills are then available as `/115dkk-skills:improve-codebase-architecture`, `/115dkk-skills:tech-debt-audit` and `/115dkk-skills:tdd`.
+The skills are then available as `/115dkk-skills:improve-codebase-architecture`, `/115dkk-skills:tech-debt-audit`, `/115dkk-skills:tdd` and `/115dkk-skills:resolve-audit`.
 
 ### Updates
 
@@ -74,6 +75,17 @@ Changes from upstream:
 - **The call-success anti-pattern**: asserting that a call was accepted instead of what it did.
 - **Test adapters that misbehave like real third-party code**, as real loadable modules with one named mode per observed violation, and production defences whose comments cite them.
 - **Rust and C++ notes**, with examples in those languages next to upstream's TypeScript ones.
+
+### resolve-audit
+
+`resolve-audit` is this repository's own skill. It was kept and installed separately until it moved here; the first commit that adds it is that copy unchanged. Changes since then:
+
+- **Reads the new audit reports.** Findings keep their audit IDs (`TD-07`, `C2`), which go into the classification table, the commit messages and any code comment written for a finding. Entries under **Looks bad but is fine**, **Fine as is** and **Resolved since the baseline** are set aside, and a carried-over (`OPEN`) finding is checked against the earlier attempt before it is planned again.
+- **Seams in the classification table.** Each behaviour change names the seam its test goes through, with what that seam catches and misses, so the confirmed table is the seam agreement `tdd` asks for.
+- **Tidy, not refactor, inside a test-first cycle.** As in `tdd`, the step after green touches only the lines the cycle wrote; structural cleanup stays a refactor item or the next audit's.
+- **Deepenings and defences have their own shape.** A deepening writes tests at the new interface and deletes the shallow tests they cover; a defence against third-party code first adds the test-adapter mode that reproduces the violation, and its comment cites that test and the finding.
+- **Documentation findings that ask for a written reason** are config-type items: the comment goes at the line and cites the audit ID.
+- **Model-invocable and harness-neutral.** The lock against model invocation is dropped, as in the other skills; task-list and subagent steps no longer name one harness's tools, and the subagents use the main session's model instead of a model named in the text. Project rules such as test commands come from the project's `CLAUDE.md` or `AGENTS.md` instead of a project-level copy of the skill.
 
 ## License
 

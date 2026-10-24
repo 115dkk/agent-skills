@@ -78,6 +78,9 @@ No runtime behavior change. Compiler or linter is the gate.
 - CI workflow modifications
 - `.gitignore` / `.editorconfig` changes
 - Documentation fixes (README, comments, docstrings)
+- A reason written at a site, for a tech-debt finding that found a
+  deliberate oddity with no written reason (the comment cites
+  `audit #<ISSUE> <ID>`)
 - License file updates
 - Dependency removal (unused, confirmed by `knip` / `depcheck`)
 
